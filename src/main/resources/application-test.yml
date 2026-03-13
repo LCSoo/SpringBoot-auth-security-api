@@ -1,8 +1,4 @@
 spring:
-    # config:
-    #     import:
-    #         - optional:file:../.env[.properties]
-
     jpa:
         database: mysql
         database-platform: org.hibernate.dialect.MySQLDialect
@@ -25,6 +21,6 @@ spring:
             enabled: ALWAYS
 
     jwt:
-        secret: ${JWT_SECRET}
+        secret: ym3Bno8Ly4bYPu52sfxnK/L6V0VNbehiFXI5XPrdzfMQmpecv1fODG3yzM+AQu1dTed38QXpsmnQTDHsdi4isQ==
         access-token-expiration: 30m
         refresh-token-expiration: 7d
