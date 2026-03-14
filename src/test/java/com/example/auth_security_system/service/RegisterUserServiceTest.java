@@ -35,7 +35,7 @@ public class RegisterUserServiceTest {
 
     @Test
     void 회원_생성_테스트() {
-        var command = RegisterUtil.회원생성_커맨드_생성();
+        var command = RegisterUtil.커맨드_생성();
         var savedUser = RegisterUtil.저장된_회원_생성();
 
         var expectedResult = RegisterUtil.예상_회원생성_결과();

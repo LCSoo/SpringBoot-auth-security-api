@@ -8,8 +8,8 @@ public record ApiResponse<T>(
     T data,
     String message
 ) {
-    public static <T> ApiResponse<T> success(T data) {
-        return new ApiResponse<> ("success", data, null);
+    public static <T> ApiResponse<T> success(T data, String successMessage) {
+        return new ApiResponse<> ("success", data, successMessage);
     }
 
     public static <T> ApiResponse<T> fail(String failMessage) {
