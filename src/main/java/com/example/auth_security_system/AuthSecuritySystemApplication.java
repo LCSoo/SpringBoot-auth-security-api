@@ -8,7 +8,6 @@ public class AuthSecuritySystemApplication {
 
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(AuthSecuritySystemApplication.class, args);
 	}
 

@@ -1,0 +1,8 @@
+package com.example.auth_security_system.application.port;
+
+import java.util.Optional;
+import com.example.auth_security_system.domain.model.User;
+
+public interface SaveUserPort {
+    Optional<User> saveUser(User user);
+}
