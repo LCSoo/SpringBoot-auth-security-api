@@ -1,4 +1,4 @@
-package com.example.auth_security_system.infrastructure.adapter.security;
+package com.example.auth_security_system.infrastructure.security;
 
 import java.io.IOException;
 import org.springframework.http.HttpStatus;

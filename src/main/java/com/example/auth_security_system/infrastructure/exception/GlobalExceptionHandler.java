@@ -1,4 +1,4 @@
-package com.example.auth_security_system.infrastructure.adapter.exception;
+package com.example.auth_security_system.infrastructure.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
