@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.example.auth_security_system.application.dto.RegisterUserCommand;
 import com.example.auth_security_system.application.dto.RegisterUserResult;
 import com.example.auth_security_system.domain.model.User;
+import com.example.auth_security_system.domain.model.UserInfo;
 import com.example.auth_security_system.domain.model.UserRole;
 import com.example.auth_security_system.domain.model.UserStatus;
 import com.example.auth_security_system.infrastructure.dto.RegisterUserRequest;
@@ -52,5 +53,10 @@ public class RegisterUtil {
     public static RegisterUserResult 예상_회원생성_결과() {
         var savedUser = 저장된_회원_생성();
         return RegisterUserResult.toDomain(savedUser);
+    }
+
+    public static UserInfo 저장된_회원_정보_생성() {
+        var savedUser = 저장된_회원_생성();
+        return UserInfo.of(savedUser);
     }
 }
