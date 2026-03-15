@@ -30,7 +30,7 @@ public class JwtLoginFilter extends OncePerRequestFilter {
             var authentication = jwtTokenAdapter.getAuthentication(accessToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-
+        
         // 다음 필터로 요청 전달 (검증 실패 시 => 인증 객체 없이 다음 필터로 전달. 401 에러 발생시킴.)
         filterChain.doFilter(request, response);
     }

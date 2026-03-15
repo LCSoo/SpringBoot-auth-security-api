@@ -10,6 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import com.example.auth_security_system.common.filter.JwtLoginFilter;
 import com.example.auth_security_system.infrastructure.adapter.JwtTokenAdapter;
+import com.example.auth_security_system.infrastructure.adapter.security.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -42,6 +43,11 @@ public class SecurityConfig {
             .addFilterBefore(
                 new JwtLoginFilter(jwtTokenAdapter), 
                 UsernamePasswordAuthenticationFilter.class
+            );
+
+        http
+            .exceptionHandling(exception -> exception
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())   
             );
 
         return http.build();
