@@ -43,7 +43,7 @@ public class JwtTokenController {
     }
 
     private ResponseCookie setRefreshTokenInCookie(String refreshToken) {
-        return ResponseCookie.from("refreshToken", "Bearer " + refreshToken)
+        return ResponseCookie.from("refreshToken",refreshToken)
                 .httpOnly(true)
                 .secure(true) // HTTPS 환경에서만 전송
                 .path("/api/v1/auth/reissue") // 리프레시 토큰이 필요한 엔드포인트에만 쿠키가 전송되도록 설정
