@@ -17,7 +17,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.SecurityException;
 
 @Component
 public class JwtTokenAdapter implements CreateJwtTokenPort {
@@ -64,6 +63,40 @@ public class JwtTokenAdapter implements CreateJwtTokenPort {
             .compact();
     }
 
+    // 토큰 유효성 검사
+    @Override
+    public boolean validateToken(String token) {
+        String rawToken = token.contains("Bearer ") ? token.replace("Bearer ", "") : token;
+
+        try {
+            Jwts.parser()
+                .verifyWith(secretKey)
+                .build()
+                .parseSignedClaims(rawToken);
+            return true;
+        } catch (SecurityException | MalformedJwtException e) {
+            // 잘못된 서명 또는 형식의 토큰
+        } catch (ExpiredJwtException e) {
+            // 만료된 토큰
+        } catch (UnsupportedJwtException e) {
+            // 지원되지 않는 토큰
+        } catch (IllegalArgumentException e) {
+            // 잘못된 토큰
+        }
+
+        return false;
+    }
+
+    @Override
+    public String extractUserId(String token) {
+        return parseClaims(token).getSubject();
+    }
+
+    @Override
+    public String extractEmail(String token) {
+        return parseClaims(token).get("email", String.class);
+    }
+
     // 토큰에서 클레임 추출
     private Claims parseClaims(String token) {
         String rawToken = token.contains("Bearer ") ? token.replace("Bearer ", "") : token;
@@ -89,26 +122,5 @@ public class JwtTokenAdapter implements CreateJwtTokenPort {
         );
     }
 
-    // 토큰 유효성 검사
-    public boolean validateToken(String token) {
-        String rawToken = token.contains("Bearer ") ? token.replace("Bearer ", "") : token;
-
-        try {
-            Jwts.parser()
-                .verifyWith(secretKey)
-                .build()
-                .parseSignedClaims(rawToken);
-            return true;
-        } catch (SecurityException | MalformedJwtException e) {
-            // 잘못된 서명 또는 형식의 토큰
-        } catch (ExpiredJwtException e) {
-            // 만료된 토큰
-        } catch (UnsupportedJwtException e) {
-            // 지원되지 않는 토큰
-        } catch (IllegalArgumentException e) {
-            // 잘못된 토큰
-        }
-
-        return false;
-    }
+    
 }

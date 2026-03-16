@@ -15,6 +15,31 @@ public class TestTokenUtil {
     private static final Duration refreshTokenExpiration = Duration.ofDays(7);
     private static final SecretKey secretKey = Keys.hmacShaKeyFor(secret.getBytes());
 
+    public static JwtTokenResult 유효한_토큰_생성(UserInfo userInfo) {
+        long now = (new Date()).getTime();
+        String accessToken = Jwts.builder()
+            .subject(userInfo.getId())
+            .claim("category", "access")
+            .claim("email", userInfo.getEmail())
+            .claim("name", userInfo.getName())
+            .claim("role", userInfo.getRole())
+            .issuedAt(new Date(now))
+            .expiration(new Date(now + accessTokenExpiration.toMillis()))
+            .signWith(secretKey)
+            .compact();
+
+        String refreshToken = Jwts.builder()
+            .subject(userInfo.getId())
+            .claim("category", "refresh")
+            .claim("email", userInfo.getEmail())
+            .claim("name", userInfo.getName())
+            .issuedAt(new Date(now))
+            .expiration(new Date(now + refreshTokenExpiration.toMillis()))
+            .signWith(secretKey)
+            .compact();
+        return new JwtTokenResult(accessToken, refreshToken);
+    }
+
     public static JwtTokenResult 만료된_토큰_생성(UserInfo userInfo) {
         long now = (new Date()).getTime();
         String accessToken = Jwts.builder()
