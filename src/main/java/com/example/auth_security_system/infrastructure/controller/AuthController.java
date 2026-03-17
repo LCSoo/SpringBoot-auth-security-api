@@ -36,7 +36,7 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.OK)
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + createdToken.accessToken())
             .header(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString())
-            .build();
+            .body("로그인을 성공했습니다.");
     }
 
     @PostMapping("/logout")
@@ -47,7 +47,7 @@ public class AuthController {
 
         return ResponseEntity.status(HttpStatus.OK)
             .header(HttpHeaders.SET_COOKIE, deleteRefreshTokenCookie().toString())
-            .build();
+            .body("로그아웃에 성공했습니다.");
     }
     
 
