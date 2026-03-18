@@ -12,7 +12,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
 import com.example.auth_security_system.application.usecase.RegisterUserUseCase;
 import com.example.auth_security_system.infrastructure.controller.RegisterUserController;
-import com.example.auth_security_system.infrastructure.dto.ApiResponse;
+import com.example.auth_security_system.infrastructure.dto.ApiResponseEntity;
 import com.example.auth_security_system.util.RegisterUtil;
 import tools.jackson.databind.ObjectMapper;
 
@@ -45,7 +45,7 @@ public class RegisterUserControllerTest {
             .apply(print())
             .hasStatus(201)
             .bodyJson()
-            .convertTo(ApiResponse.class)
+            .convertTo(ApiResponseEntity.class)
             .satisfies(res -> {
                 assertThat(res.status()).isEqualTo("success");
                 assertThat(res.data())

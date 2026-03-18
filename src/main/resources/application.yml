@@ -5,8 +5,19 @@ spring:
     config:
         import:
             - classpath:/application-db.yml
+            - classpath:/application-jwt.yml
             - optional:file:.env[.properties]
 
     output:
         ansi:
             enabled: ALWAYS
+
+server:
+    max-http-request-header-size: 64KB
+
+springdoc:
+    api-docs:
+        enabled: true
+    swagger-ui:
+        enabled: true
+    override-with-generic-response: false
