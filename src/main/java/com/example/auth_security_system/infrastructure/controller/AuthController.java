@@ -13,9 +13,13 @@ import com.example.auth_security_system.application.dto.JwtTokenResult;
 import com.example.auth_security_system.application.usecase.LoginUseCase;
 import com.example.auth_security_system.application.usecase.LogoutUseCase;
 import com.example.auth_security_system.infrastructure.dto.LoginRequest;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-
+@Tag(name = "인증 API", description = "로그인 및 로그아웃을 담당합니다.")
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
@@ -24,6 +28,11 @@ public class AuthController {
     private final LoginUseCase loginUseCase;
     private final LogoutUseCase logoutUseCase;
 
+    @Operation(summary = "사용자 로그인", description = "이메일과 비밀번호로 로그인하여 JWT 토큰을 발급받습니다.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "로그인 성공 (헤더/쿠키에 토큰 반환)"),
+        @ApiResponse(responseCode = "400", description = "이메일 또는 비밀번호 불일치")
+    })
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         // 토큰 생성
@@ -39,6 +48,7 @@ public class AuthController {
             .body("로그인을 성공했습니다.");
     }
 
+    @Operation(summary = "사용자 로그아웃", description = "Refresh Token을 삭제하여 로그아웃 처리합니다.")
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@AuthenticationPrincipal String userId) {
         
