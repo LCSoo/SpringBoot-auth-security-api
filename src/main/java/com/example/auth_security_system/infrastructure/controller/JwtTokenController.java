@@ -12,9 +12,11 @@ import com.example.auth_security_system.application.dto.JwtTokenResult;
 import com.example.auth_security_system.application.dto.ReissueTokenCommand;
 import com.example.auth_security_system.application.usecase.ReissueTokenUseCase;
 import com.example.auth_security_system.infrastructure.dto.ApiResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-
+@Tag(name = "JWT 토큰 재발급 API", description = "리프레시 토큰을 사용하여 액세스 토큰과 새로운 리프레시 토큰을 발급받습니다.")
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
@@ -22,6 +24,7 @@ public class JwtTokenController {
 
     private final ReissueTokenUseCase reissueTokenUseCase;
 
+    @Operation(summary = "JWT 토큰 재발급", description = "리프레시 토큰을 사용하여 액세스 토큰과 새로운 리프레시 토큰을 발급받습니다.")
     @PostMapping("/reissue")
     public ResponseEntity<?> reissueToken(@CookieValue(value = "refreshToken", required = false) String refreshToken) {
 
