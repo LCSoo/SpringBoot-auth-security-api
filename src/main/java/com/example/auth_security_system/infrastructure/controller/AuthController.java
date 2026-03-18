@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.auth_security_system.application.dto.JwtTokenResult;
 import com.example.auth_security_system.application.usecase.LoginUseCase;
 import com.example.auth_security_system.application.usecase.LogoutUseCase;
+import com.example.auth_security_system.infrastructure.dto.ApiResponseEntity;
 import com.example.auth_security_system.infrastructure.dto.LoginRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -45,7 +46,7 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.OK)
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + createdToken.accessToken())
             .header(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString())
-            .body("로그인을 성공했습니다.");
+            .body(ApiResponseEntity.success(null, "로그인을 성공했습니다."));
     }
 
     @Operation(summary = "사용자 로그아웃", description = "Refresh Token을 삭제하여 로그아웃 처리합니다.")
@@ -57,7 +58,7 @@ public class AuthController {
 
         return ResponseEntity.status(HttpStatus.OK)
             .header(HttpHeaders.SET_COOKIE, deleteRefreshTokenCookie().toString())
-            .body("로그아웃에 성공했습니다.");
+            .body(ApiResponseEntity.success(null, "로그아웃에 성공했습니다."));
     }
     
 

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.auth_security_system.application.usecase.RegisterUserUseCase;
-import com.example.auth_security_system.infrastructure.dto.ApiResponse;
+import com.example.auth_security_system.infrastructure.dto.ApiResponseEntity;
 import com.example.auth_security_system.infrastructure.dto.RegisterUserRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,6 +29,6 @@ public class RegisterUserController {
 
         var result = registerUserUseCase.register(request.toCommand());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(result, "회원 가입에 성공했습니다."));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseEntity.success(result, "회원 가입에 성공했습니다."));
     }
 }
