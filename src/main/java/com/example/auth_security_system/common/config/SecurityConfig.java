@@ -43,6 +43,13 @@ public class SecurityConfig {
 
         http
             .authorizeHttpRequests(auth -> auth
+                // Swagger UI 및 API 문서 접근 허용
+                .requestMatchers(
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/swagger-resources/**",
+                    "/webjars/**"
+                ).permitAll()
                 .requestMatchers("/api/v1/**").permitAll()
                 .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
